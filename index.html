@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ThaiThae Premium</title>
+    <title>ThaiThae Premium v2</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#ffffff">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
@@ -26,12 +26,9 @@
 
         body { 
             font-family: 'Kanit', sans-serif; 
-            -webkit-tap-highlight-color: transparent; 
             background-color: var(--thai-bg); 
             margin: 0; 
             min-height: 100svh; 
-            display: flex; 
-            flex-direction: column;
             padding-bottom: calc(85px + var(--sab)); 
         }
 
@@ -39,120 +36,91 @@
             padding-top: calc(var(--sat) + 1rem); 
             background: var(--thai-white); 
             border-bottom: 3px solid var(--thai-red);
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
         }
 
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 20px; }
-        .product-card { background: var(--thai-white); border-radius: 1rem; overflow: hidden; border: 1px solid #f0f0f0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); display: flex; flex-direction: column; transition: 0.3s; }
-        .product-card:active { transform: scale(0.97); }
-        .product-img { width: 100%; height: 150px; object-fit: cover; padding: 4px; border-radius: 0.8rem; }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 15px; }
+        .product-card { background: var(--thai-white); border-radius: 1rem; border: 1px solid #f0f0f0; box-shadow: 0 4px 10px rgba(0,0,0,0.02); display: flex; flex-direction: column; }
+        .product-img { width: 100%; height: 140px; object-fit: cover; border-radius: 0.8rem 0.8rem 0 0; }
 
-        .glass-nav { position: fixed; bottom: 0; left: 0; right: 0; height: calc(70px + var(--sab)); background: var(--thai-white); border-top: 1px solid #eeeeee; padding-bottom: var(--sab); display: flex; justify-content: space-around; align-items: center; z-index: 50; border-radius: 1.5rem 1.5rem 0 0; box-shadow: 0 -5px 25px rgba(0,0,0,0.05); }
-        .active-nav { color: var(--thai-red); transform: translateY(-2px); }
-        .nav-btn { color: #bbbbbb; transition: 0.3s; }
+        .glass-nav { position: fixed; bottom: 0; left: 0; right: 0; height: calc(65px + var(--sab)); background: var(--thai-white); border-top: 1px solid #eee; padding-bottom: var(--sab); display: flex; justify-content: space-around; align-items: center; z-index: 100; border-radius: 1.5rem 1.5rem 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
+        .active-nav { color: var(--thai-red) !important; font-weight: 900; }
+        .nav-btn { color: #ccc; transition: 0.2s; }
 
-        /* Login Page */
-        #loginPage { position: fixed; inset: 0; z-index: 1000; background: var(--thai-bg); display: flex; align-items: center; justify-content: center; }
-        .login-card { background: var(--thai-white); border-radius: 2.5rem; padding: 2.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); width: 88%; max-width: 380px; border: 1px solid #f0f0f0; }
+        #loginPage { position: fixed; inset: 0; z-index: 2000; background: var(--thai-bg); display: flex; align-items: center; justify-content: center; }
+        .login-card { background: var(--thai-white); border-radius: 2rem; padding: 2.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.05); width: 85%; max-width: 360px; border: 1px solid #f0f0f0; }
 
-        .tab-content { display: none; flex: 1; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        .btn-red { background: var(--thai-red); color: white; transition: 0.3s; }
-        .btn-red:active { background: var(--thai-red-dark); transform: scale(0.96); }
-        .stock-badge { background: #fff1f1; color: var(--thai-red); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
-        .toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 16px; position: fixed; z-index: 10000; left: 50%; bottom: 100px; transform: translateX(-50%); font-weight: bold; }
-        .toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+        .btn-red { background: var(--thai-red); color: white; border-radius: 1rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div id="loginPage">
-        <div class="login-card mx-auto space-y-6">
-            <div class="text-center mb-4">
-                <h1 class="text-4xl font-[900] italic tracking-tighter text-slate-800">THAI<span class="text-[var(--thai-red)]">THAE</span></h1>
-                <p class="text-slate-400 text-xs mt-1 font-bold uppercase tracking-widest">Premium Inventory Access</p>
+        <div class="login-card space-y-6">
+            <div class="text-center">
+                <h1 class="text-4xl font-black italic tracking-tighter text-slate-800">THAI<span class="text-[var(--thai-red)]">THAE</span></h1>
+                <p class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">Premium Inventory</p>
             </div>
-            
             <div class="space-y-4">
-                <div class="relative">
-                    <i data-lucide="user" class="absolute left-4 top-4 w-5 h-5 text-slate-300"></i>
-                    <input id="loginUser" type="text" placeholder="ชื่อผู้ใช้งาน" class="w-full bg-slate-50 p-4 pl-12 rounded-2xl outline-none font-bold border-2 border-transparent focus:border-[var(--thai-red)] focus:bg-white transition-all">
-                </div>
-                <div class="relative">
-                    <i data-lucide="lock" class="absolute left-4 top-4 w-5 h-5 text-slate-300"></i>
-                    <input id="loginPass" type="password" placeholder="รหัสผ่าน" class="w-full bg-slate-50 p-4 pl-12 rounded-2xl outline-none font-bold border-2 border-transparent focus:border-[var(--thai-red)] focus:bg-white transition-all text-center tracking-[0.5em]">
-                </div>
+                <input id="loginUser" type="text" placeholder="ชื่อผู้ใช้งาน" class="w-full bg-slate-50 p-4 rounded-xl outline-none font-bold border-2 border-transparent focus:border-[var(--thai-red)] transition-all">
+                <input id="loginPass" type="password" placeholder="รหัสผ่าน" class="w-full bg-slate-50 p-4 rounded-xl outline-none font-bold border-2 border-transparent focus:border-[var(--thai-red)] transition-all text-center">
             </div>
-
-            <button id="btnLogin" class="w-full btn-red py-4 rounded-2xl font-bold text-lg shadow-lg shadow-red-100">
-                เข้าสู่ระบบ
-            </button>
-            <p class="text-center text-slate-300 text-[10px] font-bold uppercase tracking-widest">© 2026 THAITHAE PREMIUM</p>
+            <button id="btnLogin" class="w-full btn-red py-4 shadow-lg shadow-red-100">เข้าสู่ระบบ</button>
         </div>
     </div>
 
     <div id="homeTab" class="tab-content">
-        <header class="px-6 pb-5 sticky top-0 z-40">
-            <div class="flex justify-between items-end">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-[var(--thai-red)] rounded-xl flex items-center justify-center shadow-md">
-                        <i data-lucide="shopping-bag" class="text-white w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-black text-slate-800 leading-none">ThaiThae</h1>
-                        <p id="roleLabel" class="text-[10px] text-[var(--thai-red)] font-bold uppercase mt-1 tracking-wider italic">Premium Service</p>
-                    </div>
-                </div>
-                <button onclick="switchTab('cartTab', document.getElementById('btnCart'))" class="p-3 bg-slate-50 rounded-2xl relative">
-                    <i data-lucide="shopping-basket" class="w-6 h-6 text-slate-700"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-1 bg-[var(--thai-red)] text-white text-[9px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-white font-bold hidden">0</span>
+        <header class="px-6 pb-4 sticky top-0 z-50">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-black text-slate-800 italic leading-none">ThaiThae</h1>
+                <button onclick="switchTab('cartTab', document.getElementById('btnCart'))" class="p-2 bg-slate-50 rounded-lg relative">
+                    <i data-lucide="shopping-bag" class="w-6 h-6 text-slate-600"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-[var(--thai-red)] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
                 </button>
             </div>
+            <p id="roleLabel" class="text-[9px] text-[var(--thai-red)] font-bold uppercase mt-1 tracking-widest"></p>
         </header>
         <main id="productGrid" class="product-grid"></main>
     </div>
 
     <div id="cartTab" class="tab-content">
-        <header class="p-6 bg-white border-b flex justify-between items-center">
-            <h2 class="text-2xl font-black text-slate-800 italic">My Basket</h2>
-            <i data-lucide="shopping-cart" class="text-[var(--thai-red)]"></i>
+        <header class="p-6 bg-white border-b sticky top-0 z-50">
+            <h2 class="text-xl font-black italic">My Basket</h2>
         </header>
-        <div id="cartList" class="p-6 space-y-4 pb-48"></div>
-        <div id="cartSummary" class="px-6 fixed bottom-24 left-0 right-0 hidden z-30">
-            <div class="bg-white p-7 rounded-[2.5rem] border-t-2 border-red-50 shadow-2xl">
-                <div class="flex justify-between items-center mb-5">
-                    <span class="text-slate-400 font-bold text-xs">ยอดรวมทั้งสิ้น</span>
-                    <span id="totalPrice" class="text-3xl font-black text-[var(--thai-red)] tabular-nums">฿0</span>
+        <div id="cartList" class="p-6 space-y-4"></div>
+        <div id="cartSummary" class="px-6 fixed bottom-20 left-0 right-0 hidden">
+            <div class="bg-white p-6 rounded-2xl shadow-2xl border border-slate-100 flex justify-between items-center mb-4">
+                <div>
+                    <p class="text-xs text-slate-400 font-bold">TOTAL</p>
+                    <p id="totalPrice" class="text-2xl font-black text-[var(--thai-red)]">฿0</p>
                 </div>
-                <button onclick="checkout()" class="w-full btn-red py-5 rounded-2xl font-black text-xl">สั่งซื้อสินค้า</button>
+                <button onclick="checkout()" class="btn-red px-8 py-3 shadow-md">ชำระเงิน</button>
             </div>
         </div>
     </div>
 
-    <div id="adminTab" class="tab-content px-6 pt-6 pb-32">
-        <h2 class="text-2xl font-black text-slate-800 italic mb-6">Inventory Management</h2>
-        <div class="bg-white p-6 rounded-3xl border border-slate-100 space-y-4 mb-8">
-            <input id="pName" type="text" placeholder="ชื่อสินค้า" class="w-full bg-slate-50 p-4 rounded-xl outline-none font-bold text-sm">
-            <div class="flex gap-3">
-                <input id="pPrice" type="number" placeholder="ราคา" class="w-1/2 bg-slate-50 p-4 rounded-xl outline-none font-bold text-[var(--thai-red)]">
-                <input id="pStock" type="number" placeholder="จำนวนสต็อก" class="w-1/2 bg-slate-50 p-4 rounded-xl outline-none font-bold text-slate-700">
+    <div id="adminTab" class="tab-content p-6">
+        <h2 class="text-xl font-black italic mb-6">Inventory</h2>
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 space-y-3 mb-6 shadow-sm">
+            <input id="pName" type="text" placeholder="ชื่อสินค้า" class="w-full bg-slate-50 p-3 rounded-lg outline-none text-sm">
+            <div class="flex gap-2">
+                <input id="pPrice" type="number" placeholder="ราคา" class="w-1/2 bg-slate-50 p-3 rounded-lg outline-none text-sm">
+                <input id="pStock" type="number" placeholder="สต็อก" class="w-1/2 bg-slate-50 p-3 rounded-lg outline-none text-sm">
             </div>
-            <input id="pImage" type="text" placeholder="ลิ้งก์รูปภาพสินค้า" class="w-full bg-slate-50 p-3 rounded-xl outline-none text-[10px]">
-            <button id="btnSave" class="w-full btn-red py-4 rounded-xl font-bold shadow-md">บันทึกลงระบบ</button>
+            <input id="pImage" type="text" placeholder="URL รูป" class="w-full bg-slate-50 p-2 rounded-lg outline-none text-[10px]">
+            <button id="btnSave" class="w-full btn-red py-3 text-sm">เพิ่มสินค้า</button>
         </div>
-        <div id="adminList" class="space-y-4"></div>
+        <div id="adminList" class="space-y-3 pb-20"></div>
     </div>
 
     <nav id="bottomNav" class="glass-nav hidden">
         <button onclick="switchTab('homeTab', this)" class="nav-btn active-nav p-4"><i data-lucide="layout-grid"></i></button>
         <button id="btnCart" onclick="switchTab('cartTab', this)" class="nav-btn p-4"><i data-lucide="shopping-bag"></i></button>
         <button id="adminNavBtn" onclick="switchTab('adminTab', this)" class="nav-btn p-4 hidden"><i data-lucide="package"></i></button>
-        <button onclick="logout()" class="text-slate-300 p-4"><i data-lucide="power"></i></button>
+        <button onclick="location.reload()" class="text-slate-300 p-4"><i data-lucide="power"></i></button>
     </nav>
-
-    <div id="toast" class="toast"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -185,31 +153,24 @@
                     Object.keys(data).forEach((key) => {
                         const item = data[key];
                         const stock = item.stock || 0;
-                        const hideCartBtn = window.currentUserRole === 'admin' ? 'hidden' : '';
-
-                        grid.innerHTML += `
-                        <div class="product-card">
-                            <img src="${item.image}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=ThaiThae'">
-                            <div class="p-4 flex flex-col flex-1">
-                                <span class="stock-badge mb-1 w-fit">สต็อก: ${stock}</span>
-                                <h3 class="font-bold text-xs text-slate-800 line-clamp-1">${item.name}</h3>
-                                <p class="text-[var(--thai-red)] font-black text-base mb-3">฿${item.price.toLocaleString()}</p>
-                                <button onclick="addToCart('${key}', '${item.name}', ${item.price}, '${item.image}', ${stock})" 
-                                    class="mt-auto w-full btn-red py-2.5 rounded-xl text-[11px] font-bold ${hideCartBtn} ${stock <= 0 ? 'opacity-30 pointer-events-none' : ''}">
-                                    ${stock > 0 ? 'ใส่ตะกร้า' : 'สินค้าหมด'}
-                                </button>
+                        const hide = window.currentUserRole === 'admin' ? 'hidden' : '';
+                        grid.innerHTML += `<div class="product-card">
+                            <img src="${item.image}" class="product-img" onerror="this.src='https://via.placeholder.com/150'">
+                            <div class="p-3 flex-1 flex flex-col">
+                                <p class="text-[8px] font-bold text-slate-300 uppercase">Stock: ${stock}</p>
+                                <h3 class="font-bold text-[11px] text-slate-700 truncate">${item.name}</h3>
+                                <p class="text-[var(--thai-red)] font-black text-xs mb-2">฿${item.price.toLocaleString()}</p>
+                                <button onclick="addToCart('${key}', '${item.name}', ${item.price}, '${item.image}', ${stock})" class="mt-auto w-full btn-red py-2 text-[10px] ${hide} ${stock <= 0 ? 'opacity-20 pointer-events-none' : ''}">หยิบใส่ตะกร้า</button>
                             </div>
                         </div>`;
-
-                        list.innerHTML += `
-                        <div class="bg-white p-4 rounded-2xl flex justify-between items-center shadow-sm border-l-4 border-l-[var(--thai-red)]">
+                        list.innerHTML += `<div class="bg-white p-3 rounded-xl flex justify-between items-center border-l-4 border-l-[var(--thai-red)] shadow-sm">
                             <div class="flex items-center gap-3">
-                                <img src="${item.image}" class="w-12 h-12 object-cover rounded-xl">
-                                <div><p class="font-bold text-sm text-slate-800">${item.name}</p><p class="text-[10px] font-bold text-slate-400">คงเหลือ: ${stock}</p></div>
+                                <img src="${item.image}" class="w-10 h-10 object-cover rounded-lg">
+                                <div><p class="font-bold text-xs">${item.name}</p><p class="text-[9px] text-slate-400">สต็อก: ${stock}</p></div>
                             </div>
-                            <div class="flex gap-2">
-                                <button onclick="addStock('${key}', ${stock})" class="text-[var(--thai-red)] p-2"><i data-lucide="plus-circle"></i></button>
-                                <button onclick="deleteOnlineProduct('${key}')" class="text-slate-300 p-2"><i data-lucide="trash-2"></i></button>
+                            <div class="flex gap-1">
+                                <button onclick="addStock('${key}', ${stock})" class="text-[var(--thai-red)] p-1"><i data-lucide="plus-circle" class="w-5 h-5"></i></button>
+                                <button onclick="deleteOnlineProduct('${key}')" class="text-slate-300 p-1"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
                             </div>
                         </div>`;
                     });
@@ -219,18 +180,18 @@
         }
 
         window.addToCart = (id, name, price, image, currentStock) => {
-            if (window.cart.filter(i => i.id === id).length >= currentStock) return alert("สต็อกไม่พอครับ!");
+            if (window.cart.filter(i => i.id === id).length >= currentStock) return alert("สต็อกไม่พอ");
             window.cart.push({id, name, price, image});
             document.getElementById('cartCount').innerText = window.cart.length;
             document.getElementById('cartCount').classList.remove('hidden');
         };
 
         window.addStock = (key, currentStock) => {
-            const amount = prompt("ระบุจำนวนสต็อกที่จะเพิ่ม:", "10");
+            const amount = prompt("เติมสต็อก:", "10");
             if (amount) update(ref(db, `products/${key}`), { stock: Number(currentStock) + Number(amount) });
         };
 
-        window.deleteOnlineProduct = (key) => { if(confirm("ต้องการลบสินค้านี้?")) remove(ref(db, `products/${key}`)); };
+        window.deleteOnlineProduct = (key) => { if(confirm("ลบ?")) remove(ref(db, `products/${key}`)); };
 
         document.getElementById('btnLogin').onclick = () => {
             const user = document.getElementById('loginUser').value.toLowerCase();
@@ -238,8 +199,7 @@
             if (pass === "1234" && user !== "") {
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('bottomNav').classList.remove('hidden');
-                document.getElementById('homeTab').classList.add('active'); // เพิ่มจุดนี้เพื่อให้โชว์หน้าแรกทันที
-                
+                document.getElementById('homeTab').classList.add('active');
                 if (user === "admin") {
                     window.currentUserRole = 'admin';
                     document.getElementById('roleLabel').innerText = "Administrator";
@@ -247,11 +207,10 @@
                     document.getElementById('btnCart').classList.add('hidden');
                 } else {
                     window.currentUserRole = 'customer';
-                    document.getElementById('roleLabel').innerText = "ยินดีต้อนรับ คุณ " + user;
+                    document.getElementById('roleLabel').innerText = "Member: " + user;
                 }
                 loadProducts();
-                lucide.createIcons();
-            } else { alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"); }
+            } else { alert("รหัสผ่านไม่ถูกต้อง"); }
         };
 
         document.getElementById('btnSave').onclick = () => {
@@ -260,10 +219,9 @@
             const stock = document.getElementById('pStock').value;
             const image = document.getElementById('pImage').value;
             if(name && price && stock && image) {
-                push(productsRef, { name, price: Number(price), stock: Number(stock), image, createdAt: Date.now() });
+                push(productsRef, { name, price: Number(price), stock: Number(stock), image });
                 document.querySelectorAll('input').forEach(i => i.value = '');
-                showToast("✅ บันทึกสินค้าเรียบร้อย");
-            } else { alert("กรุณากรอกข้อมูลให้ครบถ้วน"); }
+            }
         };
 
         window.switchTab = (tabId, btn) => {
@@ -281,33 +239,21 @@
             const totalDisplay = document.getElementById('totalPrice');
             list.innerHTML = ''; let t = 0;
             if(window.cart.length === 0) { 
-                list.innerHTML = '<div class="text-center py-32 opacity-20"><i data-lucide="shopping-bag" class="mx-auto w-20 h-20"></i><p class="mt-2 font-bold">ว่างเปล่า</p></div>'; 
+                list.innerHTML = '<div class="text-center py-20 opacity-20"><i data-lucide="shopping-bag" class="mx-auto w-12 h-12"></i></div>'; 
                 summary.classList.add('hidden'); lucide.createIcons(); return; 
             }
             window.cart.forEach((item, index) => {
                 t += item.price;
-                list.innerHTML += `<div class="bg-white p-5 rounded-2xl flex justify-between items-center border border-slate-50">
-                    <div class="flex items-center gap-4"><img src="${item.image}" class="w-14 h-14 object-cover rounded-xl shadow-sm">
-                    <div><p class="font-bold text-sm">${item.name}</p><p class="text-[var(--thai-red)] font-bold text-sm">฿${item.price.toLocaleString()}</p></div></div>
-                    <button onclick="window.cart.splice(${index},1);window.renderCart();" class="text-slate-200 hover:text-red-500"><i data-lucide="trash-2" class="w-6 h-6"></i></button></div>`;
+                list.innerHTML += `<div class="bg-white p-4 rounded-xl flex justify-between items-center border border-slate-50 shadow-sm">
+                    <div class="flex items-center gap-3"><img src="${item.image}" class="w-12 h-12 object-cover rounded-lg">
+                    <div><p class="font-bold text-xs">${item.name}</p><p class="text-[var(--thai-red)] font-black text-xs">฿${item.price.toLocaleString()}</p></div></div>
+                    <button onclick="window.cart.splice(${index},1);window.renderCart();" class="text-slate-300"><i data-lucide="x-circle"></i></button></div>`;
             });
             totalDisplay.innerText = `฿${t.toLocaleString()}`;
             summary.classList.remove('hidden'); lucide.createIcons();
         };
 
-        function showToast(msg) {
-            const t = document.getElementById("toast");
-            t.innerText = msg; t.className = "toast show";
-            setTimeout(() => t.className = "toast", 3000);
-        }
-
-        window.checkout = () => { 
-            alert("สั่งซื้อสินค้าสำเร็จ!"); 
-            window.cart = []; 
-            document.getElementById('cartCount').classList.add('hidden'); 
-            window.switchTab('homeTab', document.querySelector('.nav-btn')); 
-        };
-        window.logout = () => location.reload();
+        window.checkout = () => { alert("สั่งซื้อสำเร็จ!"); window.cart = []; document.getElementById('cartCount').classList.add('hidden'); switchTab('homeTab', document.querySelector('.nav-btn')); };
         lucide.createIcons();
     </script>
 </body>
