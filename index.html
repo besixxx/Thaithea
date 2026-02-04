@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ThaiThae Premium | Full System v2</title>
+    <title>ThaiThae Premium | Red Edition</title>
     
-    <link rel="manifest" href="manifest.json?v=2">
-    <link rel="apple-touch-icon" href="logo.png?v=2">
-    <link rel="icon" type="image/png" href="logo.png?v=2">
+    <link rel="manifest" href="manifest.json?v=3">
+    <link rel="apple-touch-icon" href="logo.png?v=3">
+    <link rel="icon" type="image/png" href="logo.png?v=3">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#a50000">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -44,9 +44,19 @@
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 20px; }
         .product-card { background: white; border-radius: 1.5rem; overflow: hidden; border: 1px solid #f0f0f0; display: flex; flex-direction: column; transition: 0.3s; }
         
-        .glass-nav { position: fixed; bottom: 0; left: 0; right: 0; height: calc(70px + var(--sab)); background: white; border-top: 1px solid #eeeeee; padding-bottom: var(--sab); display: flex; justify-content: space-around; align-items: center; z-index: 50; border-radius: 2rem 2rem 0 0; box-shadow: 0 -5px 25px rgba(0,0,0,0.05); }
-        .active-nav { color: var(--thai-red); transform: translateY(-2px); }
-        .nav-btn { color: #bbbbbb; transition: 0.3s; }
+        /* 📍 🔴 แก้ไขเมนูด้านล่างเป็นสีแดง */
+        .glass-nav { 
+            position: fixed; bottom: 0; left: 0; right: 0; 
+            height: calc(70px + var(--sab)); 
+            background: var(--thai-red); /* พื้นหลังสีแดง */
+            padding-bottom: var(--sab); 
+            display: flex; justify-content: space-around; align-items: center; 
+            z-index: 50; 
+            border-radius: 2rem 2rem 0 0; 
+            box-shadow: 0 -5px 25px rgba(165,0,0,0.3); 
+        }
+        .nav-btn { color: rgba(255,255,255,0.5); transition: 0.3s; } /* ไอคอนสีขาวจาง */
+        .active-nav { color: #ffffff !important; transform: translateY(-3px); } /* ไอคอนที่เลือกเป็นสีขาวสว่าง */
 
         #loginPage { position: fixed; inset: 0; z-index: 1000; background: var(--thai-bg); display: flex; align-items: center; justify-content: center; }
         .tab-content { display: none; flex: 1; }
@@ -60,7 +70,6 @@
         .status-shipping { background: #eff6ff; color: #1d4ed8; }
         .status-success { background: #f0fdf4; color: #15803d; }
 
-        /* 📍 POPUP STYLES */
         #orderDetailModal { 
             position: fixed; inset: 0; z-index: 2000; 
             background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); 
@@ -102,22 +111,33 @@
         </header>
 
         <div id="userBanner" class="banner-container">
-            <div class="banner-wrapper">
-                <div class="coupon-tag"></div><div class="coupon-tag-right"></div>
-                <div class="banner-content flex items-center gap-4 w-full">
-                    <div class="bg-white/20 p-3 rounded-2xl rotate-12"><i data-lucide="ticket-percent" class="w-10 h-10 text-white"></i></div>
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="bg-white text-[var(--thai-red)] text-[7px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-tighter">Discount</span>
-                            <span class="text-white/70 text-[8px] font-bold">EXP: 2026</span>
-                        </div>
-                        <h2 class="text-2xl font-[900] text-white italic tracking-tighter leading-none">SALE -50%</h2>
-                        <p class="text-white/90 text-[10px] mt-1 font-medium">สิทธิ์พิเศษสำหรับสมาชิก ThaiThae</p>
-                    </div>
-                    <i data-lucide="chevron-right" class="w-5 h-5 text-white/50"></i>
+    <div class="banner-wrapper" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1000&auto=format&fit=crop'); background-size: cover; background-position: center; border: none;">
+        
+        <div class="banner-content w-full">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="w-8 h-[2px] bg-white"></span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/90">New Arrivals</span>
+            </div>
+            <h2 class="text-3xl font-black italic text-white leading-tight tracking-tighter">
+                THAITHAE<br>HERITAGE
+            </h2>
+            <p class="text-[10px] text-white/70 mt-1 font-light tracking-wide">สัมผัสความประณีตระดับพรีเมียมได้แล้ววันนี้</p>
+            
+            <div class="mt-4 flex items-center gap-3">
+                <button class="bg-white text-[var(--thai-red)] px-6 py-2 rounded-full text-[10px] font-black uppercase shadow-lg active:scale-95 transition-all">Explore</button>
+                <div class="flex -space-x-2">
+                    <div class="w-6 h-6 rounded-full border-2 border-white bg-slate-200 overflow-hidden"><img src="https://i.pravatar.cc/100?img=1"></div>
+                    <div class="w-6 h-6 rounded-full border-2 border-white bg-slate-200 overflow-hidden"><img src="https://i.pravatar.cc/100?img=2"></div>
+                    <div class="text-[8px] text-white/80 self-center ml-4">+100 คนกำลังดู</div>
                 </div>
             </div>
         </div>
+
+        <div class="absolute top-0 right-0 p-6">
+            <i data-lucide="sparkles" class="text-white/30 w-8 h-8"></i>
+        </div>
+    </div>
+</div>
 
         <main id="productGrid" class="product-grid"></main>
     </div>
@@ -174,7 +194,7 @@
         <button id="btnCart" onclick="switchTab('cartTab', this)" class="nav-btn p-4"><i data-lucide="shopping-bag"></i></button>
         <button onclick="switchTab('historyTab', this)" class="nav-btn p-4"><i data-lucide="clipboard-list"></i></button>
         <button id="adminNavBtn" onclick="switchTab('adminTab', this)" class="nav-btn p-4 hidden"><i data-lucide="package"></i></button>
-        <button onclick="logout()" class="text-slate-300 p-4"><i data-lucide="power"></i></button>
+        <button onclick="logout()" class="nav-btn p-4 opacity-70"><i data-lucide="power"></i></button>
     </nav>
 
     <script type="module">
